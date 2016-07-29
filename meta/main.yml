@@ -1,0 +1,22 @@
+---
+galaxy_info:
+  author: Gennady Trafimenkov
+  description: Install Vagrant using binary package
+  license: MIT
+  min_ansible_version: 2.0
+  platforms:
+    - name: Ubuntu
+      versions:
+        - precise
+        - trusty
+        - xenial
+    - name: Debian
+      versions:
+        - wheezy
+        - jessie
+  categories:
+    - vagrant
+
+  issue_tracker_url: https://github.com/gtrafimenkov/ansible-role-vagrant/issues
+
+dependencies: []

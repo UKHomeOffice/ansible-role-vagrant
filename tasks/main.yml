@@ -1,0 +1,45 @@
+---
+
+- name: Check supported architecture and platform
+  assert:
+    that:
+      - ansible_os_family in ['Debian']
+      - ansible_architecture in ['x86_64']
+
+- set_fact: _vagrant_params="{{vagrant_packages[vagrant_version]['deb_' + ansible_architecture]}}"
+
+- name: Check Vagrant already installed
+  command: vagrant --version
+  failed_when: false
+  changed_when: false
+  register: version_check_res
+
+# Installing if not already installed
+- block:
+    - name: Check if package already downloaded
+      stat: path="{{vagrant_package_download_dir}}/{{_vagrant_params['package']}}" checksum_algo={{_vagrant_params['checksum_algo']}}
+      register: package_stat
+
+    # Download only if the package is missing or checksum is not correct
+    - block:
+        - name: Create directory for package download
+          file: path={{vagrant_package_download_dir}} state=directory recurse=true
+
+        - name: Download package if necessary
+          get_url: url={{_vagrant_params['url']}} dest={{vagrant_package_download_dir}}/{{_vagrant_params['package']}}
+          when: (package_stat.stat.islnk is not defined) or (package_stat.stat.checksum != _vagrant_params['checksum'])
+
+        - name: Check package checksum
+          stat: path="{{vagrant_package_download_dir}}/{{_vagrant_params['package']}}" checksum_algo={{_vagrant_params['checksum_algo']}}
+          register: package_stat_after
+
+        - name: Make sure checksum is correct
+          assert:
+            that:
+              - "package_stat_after.stat.checksum == _vagrant_params['checksum']"
+      when: (package_stat.stat.islnk is not defined) or (package_stat.stat.checksum != _vagrant_params['checksum'])
+
+    - name: Install package
+      apt: deb={{vagrant_package_download_dir}}/{{_vagrant_params['package']}}
+
+  when: version_check_res.rc != 0 or version_check_res.failed|default(false)

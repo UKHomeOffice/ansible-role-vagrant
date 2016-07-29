@@ -1,0 +1,5 @@
+---
+
+vagrant_version: 1.8.5
+
+vagrant_package_download_dir: /opt

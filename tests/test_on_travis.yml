@@ -1,0 +1,22 @@
+---
+
+- hosts: localhost
+  become: yes
+  vars:
+    vagrant_version: 1.8.3
+  roles:
+    - ansible-role-vagrant
+  tasks:
+    - apt: name=vagrant state=absent purge=true
+
+- hosts: localhost
+  become: yes
+  vars:
+    vagrant_version: 1.8.5
+  roles:
+    - ansible-role-vagrant
+
+- hosts: localhost
+  become: yes
+  roles:
+    - ansible-role-vagrant
