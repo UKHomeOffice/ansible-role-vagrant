@@ -29,12 +29,12 @@ You can specify another version using variable `vagrant_version`.  For example:
 
 ### Supported Platforms
 
-- Debian based Linux x64
+- Debian-based Linux distros
 
 ### To Do
 
 - add configuration option for updating to newest version
-- support rpm based distros
+- support rpm-based distros
 - support i686 architecture
 
 ### License
