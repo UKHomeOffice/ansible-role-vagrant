@@ -1,5 +1,5 @@
 ---
 
-vagrant_version: 1.8.5
+vagrant_version: 1.9.0
 
 vagrant_package_download_dir: /opt

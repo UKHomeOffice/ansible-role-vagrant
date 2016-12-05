@@ -1,6 +1,12 @@
 ---
 
 vagrant_packages:
+  "1.9.0":
+    deb_x86_64:
+      package: vagrant_1.9.0_x86_64.deb
+      url: https://releases.hashicorp.com/vagrant/1.9.0/vagrant_1.9.0_x86_64.deb
+      checksum: 530c3b1ddfcb37d8cb687c7f9695b4e058cf4419464a7ddd450afc8473e3eb2b
+      checksum_algo: sha256
   "1.8.5":
     deb_x86_64:
       package: vagrant_1.8.5_x86_64.deb
