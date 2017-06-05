@@ -27,9 +27,9 @@
 
         - name: Download package if necessary
           get_url: 
-            url: {{_vagrant_params['url']}} 
-            dest: {{vagrant_package_download_dir}}/{{_vagrant_params['package']}}
-            validate_certs: {{ vagrant_validate_cert }}
+            url: "{{_vagrant_params['url']}}"
+            dest: "{{vagrant_package_download_dir}}/{{_vagrant_params['package']}}"
+            validate_certs: "{{ vagrant_validate_cert }}"
           when: (package_stat.stat.islnk is not defined) or (package_stat.stat.checksum != _vagrant_params['checksum'])
 
         - name: Check package checksum
