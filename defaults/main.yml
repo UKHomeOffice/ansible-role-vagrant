@@ -3,3 +3,5 @@
 vagrant_version: 1.9.0
 
 vagrant_package_download_dir: /opt
+
+vagrant_validate_cert: no
